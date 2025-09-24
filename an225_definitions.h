@@ -1,5 +1,5 @@
 // Auto generated code file.  Blender: 3.3.9  Blender Tools: (2, 1, 3)
-// Date: Sun Sep 21 22:17:09 2025
+// Date: Wed Sep 24 19:50:21 2025
 
 
 #include "HEADERS//Orbitersdk.h"
@@ -68,6 +68,7 @@
     const UINT left_main_wing_Id = 57;
     const UINT left_vertical_stab_Id = 58;
     const UINT left_horizontal_stabilizer_Id = 59;
+    const UINT exit_door_Id = 60;
     constexpr VECTOR3 main_fuselage_Location =     {-0.0057, 5.6652, 6.1210};
     constexpr VECTOR3 ENG1_Location =     {-25.8169, 4.9224, 7.0972};
     constexpr VECTOR3 ENG1_blades_Location =     {-25.8115, 4.9785, 9.6206};
@@ -114,6 +115,7 @@
     constexpr VECTOR3 left_main_wing_Location =     {-10.5367, 8.7222, 5.2556};
     constexpr VECTOR3 left_vertical_stab_Location =     {-16.3814, 10.5889, -35.7493};
     constexpr VECTOR3 left_horizontal_stabilizer_Location =     {-8.0386, 8.7959, -30.6265};
+    constexpr VECTOR3 exit_door_Location =     {-3.8941, 2.4951, 27.6830};
     constexpr VECTOR3 Axis_Left_gear_doors_rotation_upper_60d_Location =     {-4.9012, 2.3546, 4.0898};
     constexpr VECTOR3 Axis_Right_gear_doors_rotation_upper_60d_Location =     {4.8947, 2.3546, 4.0898};
     constexpr VECTOR3 Axis_Left_gear_doors_rotation_lower_45d_Location =     {-1.2895, 1.4406, 4.0898};
@@ -134,6 +136,7 @@
     constexpr VECTOR3 Axis_front_right_gear_wheels_Location =     {1.1064, 1.9391, 33.6873};
     constexpr VECTOR3 Axis_left_main_gear_wheels_Location =     {-3.9756, 2.0323, 4.3961};
     constexpr VECTOR3 Axis_right_main_gear_wheels_Location =     {3.9380, 2.0323, 4.3961};
+    constexpr VECTOR3 Axis_Exit_Door_Location =     {-3.8941, 2.4951, 27.6830};
     constexpr VECTOR3 TDP1_Location =     {-0.0038, 0.0007, 32.9227};
     constexpr VECTOR3 TDP2_Location =     {-4.3771, 0.0007, -0.9428};
     constexpr VECTOR3 TDP3_Location =     {4.3127, 0.0007, -0.9428};

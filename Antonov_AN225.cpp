@@ -108,6 +108,10 @@ AN225::AN225(OBJHANDLE hVessel, int flightmodel) : VESSEL4(hVessel, flightmodel)
 
     landing_gear_proc = 0.0;
 
+    exitDoor_proc = 0.0;
+
+    anim_exitDoor = 0;
+    
     DefineAnimations();
 
 }
@@ -210,6 +214,11 @@ int AN225::clbkConsumeBufferedKey(int key, bool down, char *kstate){
         return 1;
     }
 
+    if(key == OAPI_KEY_D && down){
+        SetExitDoor();
+        return 1;
+    }
+
     if(down){
         if(KEYMOD_CONTROL(kstate)){
             switch(key){
@@ -233,6 +242,7 @@ void AN225::clbkPreStep(double simt, double simdt, double mjd){
 
 void AN225::clbkPostStep(double simt, double simdt, double mjd){
     UpdateLandingGearAnimation(simdt);
+    UpdateExitDoorAnimation(simdt);
     lvlcontrailengines = UpdateLvlEnginesContrail();
     
     if(engines_on && thg_main != nullptr){
@@ -288,26 +298,17 @@ void AN225::SetGearDown(void){
         GEAR_STOWING : GEAR_DEPLOYING);
 }
 
-void AN225::ActivateLandingGear(LandingGearStatus action){
-    landing_gear_status = action;
+void AN225::SetExitDoor(void){
+    ActivateExitDoor((exitDoor_status == DOOR_CLOSED || exitDoor_status == DOOR_CLOSING) ?
+       DOOR_OPENING : DOOR_CLOSING);
 }
 
-void AN225::UpdateLandingGearAnimation(double simdt) {
-    if (landing_gear_status >= GEAR_DEPLOYING) {
-        double da = simdt * LANDING_GEAR_OPERATING_SPEED;
-        if (landing_gear_status == GEAR_DEPLOYING) {
-            if (landing_gear_proc > 0.0) landing_gear_proc = std::max(0.0, landing_gear_proc - da);
-            else landing_gear_status = GEAR_DOWN;
-            SetTouchdownPoints(tdvtx_geardown, ntdvtx_geardown);
-            bGearIsDown = true;
-        } else {
-            if (landing_gear_proc < 1.0) landing_gear_proc = std::min(1.0, landing_gear_proc + da);
-            else landing_gear_status = GEAR_UP;
-            SetTouchdownPoints(tdvtx_gearup, ntdvtx_gearup);
-            bGearIsDown = false;
-        }
-        SetAnimation(anim_landing_gear, landing_gear_proc);
-    }
+void AN225::ActivateExitDoor(ExitDoorStatus action){
+    exitDoor_status = action;
+}
+
+void AN225::ActivateLandingGear(LandingGearStatus action){
+    landing_gear_status = action;
 }
 
 void AN225::UpdateGearStatus(void){

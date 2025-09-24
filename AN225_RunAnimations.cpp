@@ -22,3 +22,36 @@ void AN225::RunEnginesAnim(double simdt){
     SetAnimation(anim_engines, engines_proc);
 
 }
+
+
+void AN225::UpdateLandingGearAnimation(double simdt) {
+    if (landing_gear_status >= GEAR_DEPLOYING) {
+        double da = simdt * LANDING_GEAR_OPERATING_SPEED;
+        if (landing_gear_status == GEAR_DEPLOYING) {
+            if (landing_gear_proc > 0.0) landing_gear_proc = std::max(0.0, landing_gear_proc - da);
+            else landing_gear_status = GEAR_DOWN;
+            SetTouchdownPoints(tdvtx_geardown, ntdvtx_geardown);
+            bGearIsDown = true;
+        } else {
+            if (landing_gear_proc < 1.0) landing_gear_proc = std::min(1.0, landing_gear_proc + da);
+            else landing_gear_status = GEAR_UP;
+            SetTouchdownPoints(tdvtx_gearup, ntdvtx_gearup);
+            bGearIsDown = false;
+        }
+        SetAnimation(anim_landing_gear, landing_gear_proc);
+    }
+}
+
+void AN225::UpdateExitDoorAnimation(double simdt) {
+    if (exitDoor_status >= DOOR_CLOSING) {
+        double da = simdt * LANDING_GEAR_OPERATING_SPEED;
+        if (exitDoor_status == DOOR_CLOSING) {
+            if (exitDoor_proc > 0.0) exitDoor_proc = std::max(0.0, exitDoor_proc - da);
+            else exitDoor_status = DOOR_CLOSED;
+        } else {
+            if (exitDoor_proc < 1.0) exitDoor_proc = std::min(1.0, exitDoor_proc + da);
+            else exitDoor_status = DOOR_OPEN;
+        }
+        SetAnimation(anim_exitDoor, exitDoor_proc);
+    }
+}

@@ -16,6 +16,9 @@ void AN225::DefineAnimations(){
     anim_engines = CreateAnimation(0.0);
     DefineEngineAnimations();
 
+    anim_exitDoor = CreateAnimation(0.0);
+    DefineExitDoorAnimation();
+
 };
 
 
@@ -382,4 +385,19 @@ void AN225::DefineEngineAnimations(){
     AddAnimationComponent(anim_engines, 0, 1, &Engine4);
     AddAnimationComponent(anim_engines, 0, 1, &Engine5);
     AddAnimationComponent(anim_engines, 0, 1, &Engine6);
+}
+
+void AN225::DefineExitDoorAnimation(){
+
+    static unsigned int ExitDoorGrp[1] = {exit_door_Id};
+    static MGROUP_ROTATE ExitDoor(
+        0,
+        ExitDoorGrp,
+        1,
+        (Axis_Exit_Door_Location),
+        _V(0, 0, 1),
+        (float)(115 * RAD)
+    );
+
+    AddAnimationComponent(anim_exitDoor, 0, 1, &ExitDoor);
 }

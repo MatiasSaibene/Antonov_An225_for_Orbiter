@@ -90,6 +90,7 @@ class AN225 : public VESSEL4{
     public:
 
         enum LandingGearStatus{GEAR_DOWN, GEAR_UP, GEAR_DEPLOYING, GEAR_STOWING} landing_gear_status;
+        enum ExitDoorStatus{DOOR_CLOSED, DOOR_OPEN, DOOR_CLOSING, DOOR_OPENING} exitDoor_status;
 
         AN225(OBJHANDLE hVessel, int flightmodel);
         virtual ~AN225();
@@ -104,9 +105,14 @@ class AN225 : public VESSEL4{
         void UpdateLandingGearAnimation(double);
         void UpdateGearStatus(void);
 
+        void SetExitDoor();
+        void ActivateExitDoor(ExitDoorStatus action);
+        void UpdateExitDoorAnimation(double);
+
         void ParkingBrake();
 
         void DefineAnimations();
+        void DefineExitDoorAnimation();
         void DefineEngineAnimations();
         void DefineFrontGearAnimations();
         void DefineMainGearAnimations();
@@ -138,10 +144,12 @@ class AN225 : public VESSEL4{
         unsigned int anim_rudder;
         unsigned int anim_landing_gear;
         unsigned int anim_engines;
+        unsigned int anim_exitDoor;
 
         double lvlcontrailengines;
         double landing_gear_proc;
         double engines_proc;
+        double exitDoor_proc;
         
         bool bGearIsDown;
         bool engines_on;
